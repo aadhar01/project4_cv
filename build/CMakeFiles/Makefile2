@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /home/aadhar/project4_cv/project4_cv/build
 
 # The main recursive "all" target.
 all: CMakeFiles/augmentation.dir/all
+all: CMakeFiles/harrisC.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/augmentation.dir/clean
+clean: CMakeFiles/harrisC.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +101,32 @@ augmentation: CMakeFiles/augmentation.dir/rule
 CMakeFiles/augmentation.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/augmentation.dir/build.make CMakeFiles/augmentation.dir/clean
 .PHONY : CMakeFiles/augmentation.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/harrisC.dir
+
+# All Build rule for target.
+CMakeFiles/harrisC.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/aadhar/project4_cv/project4_cv/build/CMakeFiles --progress-num=4,5 "Built target harrisC"
+.PHONY : CMakeFiles/harrisC.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/harrisC.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aadhar/project4_cv/project4_cv/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/harrisC.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aadhar/project4_cv/project4_cv/build/CMakeFiles 0
+.PHONY : CMakeFiles/harrisC.dir/rule
+
+# Convenience name for target.
+harrisC: CMakeFiles/harrisC.dir/rule
+.PHONY : harrisC
+
+# clean rule for target.
+CMakeFiles/harrisC.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/clean
+.PHONY : CMakeFiles/harrisC.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

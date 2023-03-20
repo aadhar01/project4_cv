@@ -57,8 +57,6 @@ int main(int argc, char* argv[]){
             break;
         }
 
-        // resize the frame to 1/2 of the original size
-        resize(frame, frame, Size(), 0.5, 0.5);
 
         // Final frame to be displayed
         Mat finalFrame = frame.clone(); 
@@ -100,10 +98,10 @@ int main(int argc, char* argv[]){
             }
         }
 
-        else if (key == 'c')
+        else if (key == 'e')
         { // calibrate the camera for chessboard
             if (chessboardPointList.size() < CALIBRATION_FRAME_NEEDED)
-            { // not enough calibration frames
+            {
                 cout << "Do calibration again" << endl;
             }
             else
@@ -126,27 +124,21 @@ int main(int argc, char* argv[]){
 
         if (chessboardDistCoeffs.rows != 0)
         {
-            // extractChessboardCorners of current frame
-            vector<Point2f> currCorners; // the image points found by findChessboardCorners
+            vector<Point2f> currCorners; 
             bool foundCurrCorners = chessboardCorners2Vec(frame, chessBoardSize, currCorners);
 
             if (foundCurrCorners)
             {
-                Mat rvec, tvec; // output arrays for solvePnP()
-                bool status = solvePnP(chessBoardPoints, currCorners, chessboardCameraMatrix, chessboardDistCoeffs, rvec, tvec);
+                //Rotational and translation matrix
+                Mat rvec, tvec; 
+                bool flag = solvePnP(chessBoardPoints, currCorners, chessboardCameraMatrix, chessboardDistCoeffs, rvec, tvec);
 
-                if (status)
-                { // solvePnP() succeed
-                    // project outside corners
+                if (flag)
+                { 
                     Put4Corners(finalFrame, chessBoardPoints, rvec, tvec, chessboardCameraMatrix, chessboardDistCoeffs);
-
-                    // project a virtual object
-                    // char keyn = waitKey(10);
-
-                    
-                    createnProjectVO(finalFrame, rvec, tvec, chessboardCameraMatrix, chessboardDistCoeffs);
-
-                    
+                    cout<<"rotational vector: "<< rvec << endl;
+                    cout<<"translational vector: "<< tvec << endl;
+                    createnProjectVO(finalFrame, rvec, tvec, chessboardCameraMatrix, chessboardDistCoeffs); 
                 }
             }
         }

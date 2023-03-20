@@ -1,3 +1,8 @@
+/*
+by:
+    Aadhar Bansal
+    Pranav K Nair
+*/
 #include <opencv2/opencv.hpp>
 #include <stdio.h>
 #include "functions.h" 
@@ -41,7 +46,11 @@ bool chessboardCorners2Vec(Mat &frame, Size patternSize, vector<Point2f> &corner
 } 
 
 
-
+/*
+Function prints readable format of matrix.
+Nested loop iterates through all elements.
+Printing done in row-major order.
+*/
 void Matrix(Mat &matrix) {
     for (int i = 0; i < matrix.rows; i++) {
         cout << "[";
@@ -55,18 +64,27 @@ void Matrix(Mat &matrix) {
 
 
 
-
-    void Put4Corners(Mat &frame, vector<Vec3f> points, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs) {
+/*
+Projects 3D points onto 2D image plane.
+Draws circles on 4 specified corner points.
+Uses camera parameters and distortion coefficients.
+*/
+void Put4Corners(Mat &frame, vector<Vec3f> points, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs) 
+    {
         vector<Point2f> imagePoints;
         projectPoints(points, rvec, tvec, cameraMatrix, distCoeffs, imagePoints);
         int index[] = {0, 8, 45, 53};
         for (int i : index) {
             circle(frame, imagePoints[i], 5, Scalar(255, 221, 0), 4);
         }
-    }
+}
 
-
-    void createnProjectVO(Mat &frame, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs)
+/*
+create a 3D object and project it onto a 2D image.
+The specific object created can be changed by uncommenting lines.
+The projected points are visualized as circles on the image.
+*/
+void createnProjectVO(Mat &frame, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs)
     {
         vector<Vec3f> objectPoints;
 
@@ -75,9 +93,9 @@ void Matrix(Mat &matrix) {
              
         // objectPoints = constructObjectCircle();
         
-        objectPoints = constructObjectSphere();
+        // objectPoints = constructObjectSphere();
 
-        // objectPoints = constructObjectAll();
+        objectPoints = constructObjectAll();
         
 
         vector<Point2f> projectedPoints;
@@ -88,10 +106,14 @@ void Matrix(Mat &matrix) {
             circle(frame, projectedPoints[i], 1, Scalar(255, 221, 0), 4);
         }
         projectObjects(frame, projectedPoints);
-    }
+}
 
-
-    void projectObjects(Mat &frame, vector<Point2f> p) {
+/*
+Draws lines on an input frame.
+Uses a vector of 2D points as input.
+Lines are drawn based on the order of the points in the vector.
+*/
+void projectObjects(Mat &frame, vector<Point2f> p) {
 
             line(frame, p[0], p[1], Scalar(4, 20, 255), 2);
             line(frame, p[0], p[2], Scalar(4, 20, 255), 2);
@@ -107,7 +129,12 @@ void Matrix(Mat &matrix) {
             line(frame, p[3], p[7], Scalar(4, 20, 255), 2);
 }
 
-
+/*
+Creates an 8-point vector for a cuboid.
+Points are defined in 3D space.
+Assumes cuboid is aligned with x, y, z axes.
+*/
+//Cuboid
 vector<Vec3f> constructObjectCuboid() {
     
         vector<Vec3f> points;
@@ -123,22 +150,32 @@ vector<Vec3f> constructObjectCuboid() {
     return points;
 }
 
+
+/*
+Generates a circular object using 360 points.
+Points are evenly spaced around the circle.
+Circle is centered at (2,-3,2).
+*/
 //Circle
 vector<Vec3f> constructObjectCircle() {
-    vector<Vec3f> objectPoints;
-    objectPoints.push_back(Vec3f(2, -3, 2));
+    vector<Vec3f> points;
+    points.push_back(Vec3f(2, -3, 2));
     for (float i = 0; i < 360; i += 5) {
         float x = 2 + cos(i * M_PI / 180);
         float z = 2 + sin(i * M_PI / 180);
-        objectPoints.push_back(Vec3f(x, -3, z));
+        points.push_back(Vec3f(x, -3, z));
     }
-    return objectPoints;
+    return points;
 }
 
-
+/*
+Generates points for sphere with given parameters.
+Uses spherical coordinates to calculate points.
+Translates the sphere by a vector (7, -3, 3) to avoid overlap.
+*/
 //sphere
 vector<Vec3f> constructObjectSphere() {
-    vector<Vec3f> objectPoints;
+    vector<Vec3f> points;
     int rings = 20;
     int segments = 35;
     float radius = 2;
@@ -149,33 +186,30 @@ vector<Vec3f> constructObjectSphere() {
             float x = radius * sin(phi) * cos(theta);
             float y = -radius * cos(phi);
             float z = radius * sin(phi) * sin(theta);
-            objectPoints.push_back(Vec3f(x+7, y-3, z+3));
+            points.push_back(Vec3f(x+7, y-3, z+3));
         }
     }
-    return objectPoints;
+    return points;
 }
 
 
-//All three together
-
+//All three together Cuboid, Circle, Sphere
 vector<Vec3f> constructObjectAll() {
-
-
-    vector<Vec3f> objectPoints;
-    objectPoints.push_back(Vec3f(1, -1, 1));
-    objectPoints.push_back(Vec3f(1, -4, 1));
-    objectPoints.push_back(Vec3f(4, -1, 1));
-    objectPoints.push_back(Vec3f(4, -4, 1));
-    objectPoints.push_back(Vec3f(1, -1, 3));
-    objectPoints.push_back(Vec3f(1, -4, 3));
-    objectPoints.push_back(Vec3f(4, -1, 3));
-    objectPoints.push_back(Vec3f(4, -4, 3));
+  vector<Vec3f> points;
+    points.push_back(Vec3f(1, -1, 1));
+    points.push_back(Vec3f(1, -4, 1));
+    points.push_back(Vec3f(4, -1, 1));
+    points.push_back(Vec3f(4, -4, 1));
+    points.push_back(Vec3f(1, -1, 3));
+    points.push_back(Vec3f(1, -4, 3));
+    points.push_back(Vec3f(4, -1, 3));
+    points.push_back(Vec3f(4, -4, 3));
     
-    objectPoints.push_back(Vec3f(2, -3, 7));
+    points.push_back(Vec3f(2, -3, 7));
     for (float i = 0; i < 360; i += 5) {
         float x = 2 + cos(i * M_PI / 180);
         float z = 2 + sin(i * M_PI / 180);
-        objectPoints.push_back(Vec3f(x, -3, z+5));
+        points.push_back(Vec3f(x, -3, z+5));
     }
 
     int rings = 20;
@@ -188,9 +222,9 @@ vector<Vec3f> constructObjectAll() {
             float x = radius * sin(phi) * cos(theta);
             float y = -radius * cos(phi);
             float z = radius * sin(phi) * sin(theta);
-            objectPoints.push_back(Vec3f(x+7, y-3, z+3));
+            points.push_back(Vec3f(x+7, y-3, z+3));
         }
     }
-    return objectPoints;
+    return points;
 }
 

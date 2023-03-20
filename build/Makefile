@@ -129,6 +129,19 @@ augmentation/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/augmentation.dir/build.make CMakeFiles/augmentation.dir/build
 .PHONY : augmentation/fast
 
+#=============================================================================
+# Target rules for targets named harrisC
+
+# Build rule for target.
+harrisC: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 harrisC
+.PHONY : harrisC
+
+# fast build rule for target.
+harrisC/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/build
+.PHONY : harrisC/fast
+
 augmentation.o: augmentation.cpp.o
 .PHONY : augmentation.o
 
@@ -177,6 +190,30 @@ functions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/augmentation.dir/build.make CMakeFiles/augmentation.dir/functions.cpp.s
 .PHONY : functions.cpp.s
 
+harrisC.o: harrisC.cpp.o
+.PHONY : harrisC.o
+
+# target to build an object file
+harrisC.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/harrisC.cpp.o
+.PHONY : harrisC.cpp.o
+
+harrisC.i: harrisC.cpp.i
+.PHONY : harrisC.i
+
+# target to preprocess a source file
+harrisC.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/harrisC.cpp.i
+.PHONY : harrisC.cpp.i
+
+harrisC.s: harrisC.cpp.s
+.PHONY : harrisC.s
+
+# target to generate assembly for a file
+harrisC.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/harrisC.dir/build.make CMakeFiles/harrisC.dir/harrisC.cpp.s
+.PHONY : harrisC.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +223,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... augmentation"
+	@echo "... harrisC"
 	@echo "... augmentation.o"
 	@echo "... augmentation.i"
 	@echo "... augmentation.s"
 	@echo "... functions.o"
 	@echo "... functions.i"
 	@echo "... functions.s"
+	@echo "... harrisC.o"
+	@echo "... harrisC.i"
+	@echo "... harrisC.s"
 .PHONY : help
 
 

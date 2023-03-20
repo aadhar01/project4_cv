@@ -50,4 +50,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/augmentation.dir/DependInfo.cmake"
+  "CMakeFiles/harrisC.dir/DependInfo.cmake"
   )
