@@ -1,0 +1,3 @@
+/home/aadhar/project4_cv/project4_cv/build/CMakeFiles/augmentation.dir
+/home/aadhar/project4_cv/project4_cv/build/CMakeFiles/edit_cache.dir
+/home/aadhar/project4_cv/project4_cv/build/CMakeFiles/rebuild_cache.dir
